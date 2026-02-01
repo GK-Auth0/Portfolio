@@ -214,6 +214,7 @@ export default function Portfolio() {
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Neon</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Netlify</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Railway</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Ngrok</span>
               </div>
             </div>
             <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
@@ -257,6 +258,7 @@ export default function Portfolio() {
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold text-primary px-2 py-0.5 rounded bg-primary/10">React</span>
+                  <span className="text-xs font-bold text-primary px-2 py-0.5 rounded bg-primary/10">TypeScript</span>
                   <span className="text-xs font-bold text-primary px-2 py-0.5 rounded bg-primary/10">Node.js</span>
                   <span className="text-xs font-bold text-primary px-2 py-0.5 rounded bg-primary/10">PostgreSQL</span>
                 </div>
@@ -278,6 +280,7 @@ export default function Portfolio() {
               </div>
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-primary px-2 py-0.5 rounded bg-primary/10">TypeScript</span>
                   <span className="text-xs font-bold text-primary px-2 py-0.5 rounded bg-primary/10">Express.js</span>
                   <span className="text-xs font-bold text-primary px-2 py-0.5 rounded bg-primary/10">PostgreSQL</span>
                   <span className="text-xs font-bold text-primary px-2 py-0.5 rounded bg-primary/10">Stripe</span>
