@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 interface ResumeDownloadProps {
   onDownload: () => void;
   isDownloading: boolean;
