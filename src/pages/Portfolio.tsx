@@ -1,4 +1,49 @@
+import { useState } from 'react';
+import ContactForm from '../components/ContactForm';
+import ResumeDownload from '../components/ResumeDownload';
+import ResumeModal from '../components/ResumeModal';
+
 export default function Portfolio() {
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [showResumeModal, setShowResumeModal] = useState(false);
+
+  const handleDownloadRequest = () => {
+    setShowResumeModal(true);
+  };
+
+  const handleDownload = async (name: string, email: string) => {
+    setIsDownloading(true);
+    
+    try {
+      await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          service_id: (import.meta as any).env.VITE_EMAILJS_SERVICE_ID,
+          template_id: (import.meta as any).env.VITE_RESUME_NOTIFICATION_TEMPLATE_ID,
+          user_id: (import.meta as any).env.VITE_EMAILJS_PUBLIC_KEY,
+          template_params: {
+            from_name: name,
+            from_email: email,
+            message: `${name} (${email}) downloaded your resume from your portfolio website.`,
+            to_email: (import.meta as any).env.VITE_RECIPIENT_EMAIL
+          }
+        })
+      });
+
+      const resumeUrl = (import.meta as any).env.VITE_RESUME_URL;
+      window.open(resumeUrl, '_blank');
+      
+    } catch (error) {
+      console.error('Error sending notification:', error);
+      const resumeUrl = (import.meta as any).env.VITE_RESUME_URL;
+      window.open(resumeUrl, '_blank');
+    } finally {
+      setIsDownloading(false);
+    }
+  };
   return (
     <>
       {/* Top Navigation Bar */}
@@ -15,10 +60,11 @@ export default function Portfolio() {
             <a className="text-sm font-medium hover:text-primary transition-colors" href="#skills">Skills</a>
             <a className="text-sm font-medium hover:text-primary transition-colors" href="#projects">Projects</a>
             <a className="text-sm font-medium hover:text-primary transition-colors" href="#experience">Experience</a>
+            <a className="text-sm font-medium hover:text-primary transition-colors" href="#certifications">Certifications</a>
             <a className="text-sm font-medium hover:text-primary transition-colors" href="#contact">Contact</a>
           </nav>
-          <button className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-bold transition-all shadow-sm">
-            Download Resume
+          <button onClick={handleDownloadRequest} disabled={isDownloading} className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-bold transition-all shadow-sm disabled:opacity-50">
+            {isDownloading ? 'Downloading...' : 'Download Resume'}
           </button>
         </div>
       </header>
@@ -44,15 +90,15 @@ export default function Portfolio() {
                 </h2>
               </div>
               <p className="text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-                Full-Stack Developer with around 2 years of experience building scalable web applications using React, Next.js, Node.js, and PostgreSQL. Skilled in designing RESTful APIs, improving system performance, and delivering reliable end-to-end features across the stack. Experienced in payment integrations and automation, with a strong focus on broader product development, modern architectures, and user-centric solutions. <strong>Actively seeking new opportunities</strong> to build impactful web applications.
+                Full-Stack Developer with 2+ years of experience building scalable web applications using React, Next.js, Node.js, and PostgreSQL. Skilled in designing RESTful APIs, improving system performance, and delivering reliable end-to-end features across the stack. Experienced in payment integrations and automation, with a strong focus on broader product development, modern architectures, and user-centric solutions. <strong>Actively seeking new opportunities</strong> to build impactful web applications.
               </p>
               <div className="flex flex-wrap gap-4 pt-4">
                 <a href="#projects" className="bg-primary text-white px-8 py-4 rounded-xl font-bold hover:scale-[1.02] transition-transform flex items-center gap-2 shadow-lg shadow-primary/20">
                   Explore My Work <span className="material-symbols-outlined">arrow_forward</span>
                 </a>
-                <button className="bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white px-8 py-4 rounded-xl font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
+                <a href="#contact" className="bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white px-8 py-4 rounded-xl font-bold hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">
                   Let's Talk
-                </button>
+                </a>
               </div>
             </div>
             <div className="flex-1 w-full max-w-[500px]">
@@ -80,33 +126,54 @@ export default function Portfolio() {
           <div className="max-w-4xl mx-auto text-center flex flex-col gap-6">
             <h2 className="text-primary text-sm font-bold uppercase tracking-[0.2em]">The Giridharan Approach</h2>
             <h3 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-              I believe in engineering products that don't just work, but excel.
+              I believe in engineering products that deliver exceptional user experiences and business value.
             </h3>
             <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-              My philosophy is simple: write code for humans, not just machines. I bridge the gap between business objectives and technical implementation, ensuring every pixel and every API endpoint serves a clear purpose for the end user.
+              My approach combines technical excellence with business understanding. I focus on building scalable architectures, implementing robust payment systems, and creating seamless user workflows that drive real business outcomes.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
             <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-shadow group">
               <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
                 <span className="material-symbols-outlined">architecture</span>
               </div>
               <h4 className="text-xl font-bold mb-3">Scalable Architecture</h4>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">I architect backends that handle growth effortlessly, utilizing Node.js and MongoDB to build systems that stay fast as you scale.</p>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">I architect backends that handle growth effortlessly, utilizing Node.js and PostgreSQL to build systems that stay fast as you scale.</p>
             </div>
             <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-shadow group">
               <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
                 <span className="material-symbols-outlined">devices</span>
               </div>
-              <h4 className="text-xl font-bold mb-3">Intuitive Interfaces</h4>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Crafting responsive, user-centric frontends with React and Tailwind that provide a seamless experience on any screen.</p>
+              <h4 className="text-xl font-bold mb-3">Full-Stack Development</h4>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Building end-to-end solutions with React, Next.js, Node.js, and PostgreSQL, focusing on scalable architectures and maintainable code.</p>
+            </div>
+            <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-shadow group">
+              <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                <span className="material-symbols-outlined">payment</span>
+              </div>
+              <h4 className="text-xl font-bold mb-3">Payment Systems & Integration</h4>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Expert in Stripe integration, payment processing, webhooks, tax calculation, and automated billing flows with ACH and card payment support.</p>
             </div>
             <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-shadow group">
               <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
                 <span className="material-symbols-outlined">rocket_launch</span>
               </div>
-              <h4 className="text-xl font-bold mb-3">Code Optimization</h4>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Obsessed with performance metrics and clean code standards to deliver lightning-fast load times and maintainability.</p>
+              <h4 className="text-xl font-bold mb-3">Automation & Testing</h4>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Implementing comprehensive testing strategies with Playwright, Jest, Chai, and Mocha to ensure reliable, production-ready applications.</p>
+            </div>
+            <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-shadow group">
+              <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                <span className="material-symbols-outlined">cloud</span>
+              </div>
+              <h4 className="text-xl font-bold mb-3">Cloud & DevOps</h4>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Deploying applications with AWS Lambda, S3, Docker, and implementing CI/CD pipelines for seamless development workflows.</p>
+            </div>
+            <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-shadow group">
+              <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                <span className="material-symbols-outlined">analytics</span>
+              </div>
+              <h4 className="text-xl font-bold mb-3">Data Analysis & Reporting</h4>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Experience in banking domain reporting, SQL optimization, and data transformation using Eclipse BIRT and advanced analytics.</p>
             </div>
           </div>
         </section>
@@ -161,12 +228,17 @@ export default function Portfolio() {
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Node.js</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Express.js</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Python</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Java</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">C++</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">FastAPI</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">RESTful APIs</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Flyway Migration</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">API Authentication</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Redis</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Jest</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">JWT</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">OAuth</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">WebSockets</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Sequelize</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Bcrypt</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Helmet</span>
@@ -201,6 +273,7 @@ export default function Portfolio() {
               <div className="flex flex-wrap gap-2">
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">AWS Lambda</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">AWS S3</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">AWS Amplify</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Git</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Cloudinary</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Docker</span>
@@ -416,6 +489,175 @@ export default function Portfolio() {
           </div>
         </section>
 
+        {/* Certifications Section */}
+        <section className="py-24 border-t border-slate-200 dark:border-slate-800" id="certifications">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+            <div className="flex flex-col gap-4">
+              <h2 className="text-primary text-sm font-bold uppercase tracking-[0.2em]">Verified Achievements</h2>
+              <h3 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">Professional Certifications</h3>
+            </div>
+            <p className="max-w-md text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+              Technical validations from industry leaders confirming proficiency in modern cloud and development practices.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-full">
+              <div>
+                <div className="size-12 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-primary">
+                  <span className="material-symbols-outlined text-2xl">school</span>
+                </div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">Programming for Everybody (Getting Started with Python)</h4>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Coursera • Does not expire</p>
+              </div>
+              {import.meta.env.VITE_SHOW_CERTIFICATE_LINKS === 'true' && (
+                <a className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:gap-3 transition-all" href="#" target="_blank" rel="noopener noreferrer">
+                  Verify Credential <span className="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+              )}
+            </div>
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-full">
+              <div>
+                <div className="size-12 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-primary">
+                  <span className="material-symbols-outlined text-2xl">code</span>
+                </div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">React JS</h4>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Guvi • Does not expire</p>
+              </div>
+              {import.meta.env.VITE_SHOW_CERTIFICATE_LINKS === 'true' && (
+                <a className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:gap-3 transition-all" href={import.meta.env.VITE_CERT_REACT_JS} target="_blank" rel="noopener noreferrer">
+                  Verify Credential <span className="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+              )}
+            </div>
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-full">
+              <div>
+                <div className="size-12 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-primary">
+                  <span className="material-symbols-outlined text-2xl">database</span>
+                </div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">MongoDB</h4>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Guvi • Does not expire</p>
+              </div>
+              {import.meta.env.VITE_SHOW_CERTIFICATE_LINKS === 'true' && (
+                <a className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:gap-3 transition-all" href={import.meta.env.VITE_CERT_MONGODB} target="_blank" rel="noopener noreferrer">
+                  Verify Credential <span className="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+              )}
+            </div>
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-full">
+              <div>
+                <div className="size-12 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-primary">
+                  <span className="material-symbols-outlined text-2xl">storage</span>
+                </div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">MySQL</h4>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Guvi • Does not expire</p>
+              </div>
+              {import.meta.env.VITE_SHOW_CERTIFICATE_LINKS === 'true' && (
+                <a className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:gap-3 transition-all" href={import.meta.env.VITE_CERT_MYSQL} target="_blank" rel="noopener noreferrer">
+                  Verify Credential <span className="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+              )}
+            </div>
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-full">
+              <div>
+                <div className="size-12 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-primary">
+                  <span className="material-symbols-outlined text-2xl">web</span>
+                </div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">HTML</h4>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Guvi • Does not expire</p>
+              </div>
+              {import.meta.env.VITE_SHOW_CERTIFICATE_LINKS === 'true' && (
+                <a className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:gap-3 transition-all" href={import.meta.env.VITE_CERT_HTML} target="_blank" rel="noopener noreferrer">
+                  Verify Credential <span className="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+              )}
+            </div>
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-full">
+              <div>
+                <div className="size-12 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-primary">
+                  <span className="material-symbols-outlined text-2xl">style</span>
+                </div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">Bootstrap</h4>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Guvi • Does not expire</p>
+              </div>
+              {import.meta.env.VITE_SHOW_CERTIFICATE_LINKS === 'true' && (
+                <a className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:gap-3 transition-all" href={import.meta.env.VITE_CERT_BOOTSTRAP} target="_blank" rel="noopener noreferrer">
+                  Verify Credential <span className="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+              )}
+            </div>
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-full">
+              <div>
+                <div className="size-12 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-primary">
+                  <span className="material-symbols-outlined text-2xl">javascript</span>
+                </div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">Node JS</h4>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Guvi • Does not expire</p>
+              </div>
+              {import.meta.env.VITE_SHOW_CERTIFICATE_LINKS === 'true' && (
+                <a className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:gap-3 transition-all" href={import.meta.env.VITE_CERT_NODE_JS} target="_blank" rel="noopener noreferrer">
+                  Verify Credential <span className="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+              )}
+            </div>
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-full">
+              <div>
+                <div className="size-12 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-primary">
+                  <span className="material-symbols-outlined text-2xl">css</span>
+                </div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">CSS</h4>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Guvi • Does not expire</p>
+              </div>
+              {import.meta.env.VITE_SHOW_CERTIFICATE_LINKS === 'true' && (
+                <a className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:gap-3 transition-all" href={import.meta.env.VITE_CERT_CSS} target="_blank" rel="noopener noreferrer">
+                  Verify Credential <span className="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+              )}
+            </div>
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-full">
+              <div>
+                <div className="size-12 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-primary">
+                  <span className="material-symbols-outlined text-2xl">javascript</span>
+                </div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">JavaScript</h4>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Guvi • Does not expire</p>
+              </div>
+              {import.meta.env.VITE_SHOW_CERTIFICATE_LINKS === 'true' && (
+                <a className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:gap-3 transition-all" href="#" target="_blank" rel="noopener noreferrer">
+                  Verify Credential <span className="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+              )}
+            </div>
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-full">
+              <div>
+                <div className="size-12 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-primary">
+                  <span className="material-symbols-outlined text-2xl">code</span>
+                </div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">TypeScript</h4>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Guvi • Does not expire</p>
+              </div>
+              {import.meta.env.VITE_SHOW_CERTIFICATE_LINKS === 'true' && (
+                <a className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:gap-3 transition-all" href="#" target="_blank" rel="noopener noreferrer">
+                  Verify Credential <span className="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+              )}
+            </div>
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between h-full">
+              <div>
+                <div className="size-12 bg-slate-50 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-primary">
+                  <span className="material-symbols-outlined text-2xl">layers</span>
+                </div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-tight mb-2">Full Stack Software Development Program</h4>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Guvi • Does not expire</p>
+              </div>
+              {import.meta.env.VITE_SHOW_CERTIFICATE_LINKS === 'true' && (
+                <a className="inline-flex items-center gap-2 text-primary text-sm font-bold hover:gap-3 transition-all" href={import.meta.env.VITE_CERT_FULL_STACK} target="_blank" rel="noopener noreferrer">
+                  Verify Credential <span className="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
+
         {/* Contact Section */}
         <section className="py-24 border-t border-slate-200 dark:border-slate-800" id="contact">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
@@ -430,34 +672,16 @@ export default function Portfolio() {
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-4 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors cursor-pointer">
                   <span className="material-symbols-outlined p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800">mail</span>
-                  <span className="font-medium">contact@giridharan.dev</span>
+                  <span className="font-medium">{import.meta.env.VITE_EMAIL}</span>
                 </div>
                 <div className="flex items-center gap-4 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors cursor-pointer">
                   <span className="material-symbols-outlined p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800">share</span>
-                  <span className="font-medium">linkedin.com/in/giridharan</span>
+                  <span className="font-medium">{import.meta.env.VITE_LINKEDIN_URL}</span>
                 </div>
               </div>
             </div>
             <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xl">
-              <form className="flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex flex-col gap-2">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Name</label>
-                    <input className="bg-slate-50 dark:bg-slate-800 border-none rounded-xl p-4 focus:ring-2 focus:ring-primary/50" placeholder="Your Name" type="text"/>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Email</label>
-                    <input className="bg-slate-50 dark:bg-slate-800 border-none rounded-xl p-4 focus:ring-2 focus:ring-primary/50" placeholder="your@email.com" type="email"/>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm font-bold text-slate-700 dark:text-slate-300">How can I help you?</label>
-                  <textarea className="bg-slate-50 dark:bg-slate-800 border-none rounded-xl p-4 focus:ring-2 focus:ring-primary/50" placeholder="Tell me about your opportunity or project..." rows={4}></textarea>
-                </div>
-                <button className="bg-primary text-white py-4 rounded-xl font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
-                  Send Inquiry
-                </button>
-              </form>
+              <ContactForm />
             </div>
           </div>
         </section>
@@ -475,7 +699,7 @@ export default function Portfolio() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
                   <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
                     <span className="material-symbols-outlined text-primary">history</span>
-                    <span className="text-sm font-bold">3+ Years Experience</span>
+                    <span className="text-sm font-bold">2+ Years Experience</span>
                   </div>
                   <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
                     <span className="material-symbols-outlined text-primary">layers</span>
@@ -483,17 +707,15 @@ export default function Portfolio() {
                   </div>
                   <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
                     <span className="material-symbols-outlined text-primary">school</span>
-                    <span className="text-sm font-bold">B.S. Computer Science</span>
+                    <span className="text-sm font-bold">B.E. Electronics & Communication</span>
                   </div>
                   <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
                     <span className="material-symbols-outlined text-primary">language</span>
-                    <span className="text-sm font-bold">Open to Remote</span>
+                    <span className="text-sm font-bold">Open to Remote & Bengaluru</span>
                   </div>
                 </div>
               </div>
-              <button className="w-full sm:w-fit bg-primary text-white px-10 py-5 rounded-2xl font-black text-lg hover:scale-[1.03] transition-all flex items-center justify-center gap-3 shadow-xl shadow-primary/30">
-                <span className="material-symbols-outlined">download</span> Download Full Resume (PDF)
-              </button>
+              <ResumeDownload onDownload={handleDownloadRequest} isDownloading={isDownloading} />
             </div>
             <div className="flex-1 bg-slate-50 dark:bg-slate-800/50 p-8 lg:p-12 flex items-center justify-center border-l border-slate-100 dark:border-slate-800">
               <div className="w-full max-w-md aspect-[1/1.4] bg-white dark:bg-slate-900 rounded shadow-2xl border border-slate-200 dark:border-slate-700 p-8 flex flex-col gap-6 overflow-hidden relative group">
@@ -554,6 +776,12 @@ export default function Portfolio() {
           </div>
         </div>
       </footer>
+      
+      <ResumeModal 
+        isOpen={showResumeModal} 
+        onClose={() => setShowResumeModal(false)} 
+        onDownload={handleDownload} 
+      />
     </>
   )
 }
