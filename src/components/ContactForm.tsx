@@ -29,14 +29,14 @@ const ContactForm = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          service_id: (import.meta as any).env.VITE_EMAILJS_SERVICE_ID,
-          template_id: (import.meta as any).env.VITE_EMAILJS_TEMPLATE_ID,
-          user_id: (import.meta as any).env.VITE_EMAILJS_PUBLIC_KEY,
+          service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          template_id: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          user_id: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
           template_params: {
             from_name: formData.name,
             from_email: formData.email,
             message: formData.message,
-            to_email: (import.meta as any).env.VITE_RECIPIENT_EMAIL
+            to_email: import.meta.env.VITE_RECIPIENT_EMAIL
           }
         })
       });

@@ -21,24 +21,24 @@ export default function Portfolio() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          service_id: (import.meta as any).env.VITE_EMAILJS_SERVICE_ID,
-          template_id: (import.meta as any).env.VITE_RESUME_NOTIFICATION_TEMPLATE_ID,
-          user_id: (import.meta as any).env.VITE_EMAILJS_PUBLIC_KEY,
+          service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          template_id: import.meta.env.VITE_RESUME_NOTIFICATION_TEMPLATE_ID,
+          user_id: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
           template_params: {
             from_name: name,
             from_email: email,
             message: `${name} (${email}) downloaded your resume from your portfolio website.`,
-            to_email: (import.meta as any).env.VITE_RECIPIENT_EMAIL
+            to_email: import.meta.env.VITE_RECIPIENT_EMAIL
           }
         })
       });
 
-      const resumeUrl = (import.meta as any).env.VITE_RESUME_URL;
+      const resumeUrl = import.meta.env.VITE_RESUME_URL;
       window.open(resumeUrl, '_blank');
       
     } catch (error) {
       console.error('Error sending notification:', error);
-      const resumeUrl = (import.meta as any).env.VITE_RESUME_URL;
+      const resumeUrl = import.meta.env.VITE_RESUME_URL;
       window.open(resumeUrl, '_blank');
     } finally {
       setIsDownloading(false);
