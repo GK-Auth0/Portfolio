@@ -470,6 +470,9 @@ export default function Portfolio() {
                 <p>• Built the Gate Schedule module to manage Gate In / Gate Out workflows, including IP-based location validation (lat/long), geofencing, and reservation verification.</p>
                 <p>• Developed Instant Approval and Promo Code features and implemented reservation lifecycle workflows, including modifications, email notifications, and UBI insurance validation.</p>
                 <p>• Integrated Stripe for customer management, cards and ACH payments, invoices, webhooks, and US sales tax calculation using Stripe Tax and Numeral, reducing manual billing effort and errors.</p>
+                <p>• Developed and managed cron-based scheduled jobs to automate late fee processing, reservation notifications (pickup/drop-off alerts), invoice email dispatch, and automatic payment deductions.</p>
+                <p>• Designed scalable services to handle high-volume transactions with a focus on fault tolerance, maintainability, and API performance.</p>
+                <p>• Implemented Power Streak rewards for on-time pickup/drop-off with late-fee and no-claim rule enforcement.</p>
                 <p>• Contributed to Playwright automation testing, resolved critical production issues, delivered hotfixes, and supported ongoing platform stability and performance.</p>
               </div>
             </div>
