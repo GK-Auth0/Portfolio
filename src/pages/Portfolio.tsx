@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ContactForm from '../components/ContactForm';
 import ResumeDownload from '../components/ResumeDownload';
 import ResumeModal from '../components/ResumeModal';
@@ -6,6 +6,13 @@ import ResumeModal from '../components/ResumeModal';
 export default function Portfolio() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
+  const [isDark, setIsDark] = useState(() =>
+    document.documentElement.classList.contains('dark')
+  );
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', isDark);
+  }, [isDark]);
 
   const handleDownloadRequest = () => {
     setShowResumeModal(true);
@@ -63,9 +70,18 @@ export default function Portfolio() {
             <a className="text-sm font-medium hover:text-primary transition-colors" href="#certifications">Certifications</a>
             <a className="text-sm font-medium hover:text-primary transition-colors" href="#contact">Contact</a>
           </nav>
-          <button onClick={handleDownloadRequest} disabled={isDownloading} className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-bold transition-all shadow-sm disabled:opacity-50">
-            {isDownloading ? 'Downloading...' : 'Download Resume'}
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsDark(prev => !prev)}
+              className="p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
+              aria-label="Toggle theme"
+            >
+              <span className="material-symbols-outlined text-xl">{isDark ? 'light_mode' : 'dark_mode'}</span>
+            </button>
+            <button onClick={handleDownloadRequest} disabled={isDownloading} className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-lg text-sm font-bold transition-all shadow-sm disabled:opacity-50">
+              {isDownloading ? 'Downloading...' : 'Download Resume'}
+            </button>
+          </div>
         </div>
       </header>
 
