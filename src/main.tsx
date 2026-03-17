@@ -5,7 +5,8 @@ import './index.css'
 
 try {
   const trackerUrl = import.meta.env.VITE_TRACKER_URL
-  if (trackerUrl) {
+  if (trackerUrl && !sessionStorage.getItem('_t')) {
+    sessionStorage.setItem('_t', '1')
     fetch(`${trackerUrl}/track`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

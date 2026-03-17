@@ -787,7 +787,7 @@ export default function Portfolio() {
             </div>
             <h2 className="text-md font-black tracking-tight text-slate-900 dark:text-white">Giridharan</h2>
           </div>
-          <p className="text-slate-500 text-sm">© 2024 Giridharan. Actively seeking MERN Stack Developer opportunities.</p>
+          <p className="text-slate-500 text-sm">© 2026 Giridharan. Actively seeking MERN Stack Developer opportunities.</p>
           <div className="flex gap-4">
             <a className="text-slate-400 hover:text-primary transition-colors" href="#"><span className="material-symbols-outlined">public</span></a>
             <a className="text-slate-400 hover:text-primary transition-colors" href="#"><span className="material-symbols-outlined">group</span></a>
