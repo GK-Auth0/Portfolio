@@ -336,7 +336,7 @@ export default function Portfolio() {
               <div className="relative overflow-hidden rounded-3xl bg-slate-100 dark:bg-slate-800 aspect-[16/10]">
                 <img alt="Task management dashboard" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=500&fit=crop&crop=entropy&auto=format&q=80"/>
                 <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                  <a href="https://task-tracker-2p0p38ssm-giridharans-projects.vercel.app/" target="_blank" rel="noopener noreferrer" className="bg-white text-slate-900 px-6 py-3 rounded-xl font-bold flex items-center gap-2">
+                  <a href="https://www.gkdev.co.in/" target="_blank" rel="noopener noreferrer" className="bg-white text-slate-900 px-6 py-3 rounded-xl font-bold flex items-center gap-2">
                     <span className="material-symbols-outlined">visibility</span> Live Demo
                   </a>
                   <a href="https://github.com/giridharan-gk/Task-Tracker" target="_blank" rel="noopener noreferrer" className="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 border border-white/20">
