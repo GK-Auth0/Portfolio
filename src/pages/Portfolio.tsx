@@ -6,9 +6,14 @@ import ResumeModal from '../components/ResumeModal';
 export default function Portfolio() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
-  const [isDark, setIsDark] = useState(() =>
-    document.documentElement.classList.contains('dark')
-  );
+  const [isDark, setIsDark] = useState(() => {
+    const defaultTheme = import.meta.env.VITE_DEFAULT_THEME?.toLowerCase();
+
+    if (defaultTheme === 'dark') return true;
+    if (defaultTheme === 'light') return false;
+
+    return document.documentElement.classList.contains('dark');
+  });
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', isDark);

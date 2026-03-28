@@ -7,6 +7,7 @@ interface ImportMetaEnv {
   readonly VITE_RECIPIENT_EMAIL: string
   readonly VITE_RESUME_URL: string
   readonly VITE_RESUME_NOTIFICATION_TEMPLATE_ID: string
+  readonly VITE_DEFAULT_THEME: string
   readonly VITE_EMAIL: string
   readonly VITE_LINKEDIN_URL: string
   readonly VITE_SHOW_CERTIFICATE_LINKS: string
