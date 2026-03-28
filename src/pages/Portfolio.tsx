@@ -142,10 +142,10 @@ export default function Portfolio() {
           <div className="max-w-4xl mx-auto text-center flex flex-col gap-6">
             <h2 className="text-primary text-sm font-bold uppercase tracking-[0.2em]">The Giridharan Approach</h2>
             <h3 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-              I believe in engineering products that deliver exceptional user experiences and business value.
+              I build products with a developer mindset, a system design lens, and a strong focus on business impact.
             </h3>
             <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-              My approach combines technical excellence with business understanding. I focus on building scalable architectures, implementing robust payment systems, and creating seamless user workflows that drive real business outcomes.
+              My approach blends full-stack execution with architecture thinking. I focus on scalable APIs, resilient backend systems, payment workflows, caching, load handling, and cloud deployments that turn product ideas into reliable user experiences.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
@@ -153,22 +153,22 @@ export default function Portfolio() {
               <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
                 <span className="material-symbols-outlined">architecture</span>
               </div>
-              <h4 className="text-xl font-bold mb-3">Scalable Architecture</h4>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">I architect backends that handle growth effortlessly, utilizing Node.js and PostgreSQL to build systems that stay fast as you scale.</p>
+              <h4 className="text-xl font-bold mb-3">Scalable Architecture & System Design</h4>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">I design systems with API gateways, caching, load balancing, database scaling, and reliability patterns so applications stay fast, available, and resilient as traffic grows.</p>
             </div>
             <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-shadow group">
               <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
                 <span className="material-symbols-outlined">devices</span>
               </div>
               <h4 className="text-xl font-bold mb-3">Full-Stack Development</h4>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Building end-to-end solutions with React, Next.js, Node.js, and PostgreSQL, focusing on scalable architectures and maintainable code.</p>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Building end-to-end solutions with React, Next.js, Node.js, and PostgreSQL, with clean API design, maintainable code, and production-ready architecture decisions.</p>
             </div>
             <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-shadow group">
               <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
                 <span className="material-symbols-outlined">payment</span>
               </div>
               <h4 className="text-xl font-bold mb-3">Payment Systems & Integration</h4>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Expert in Stripe integration, payment processing, webhooks, tax calculation, and automated billing flows with ACH and card payment support.</p>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Experienced in Stripe integration, payment processing, secure webhooks, tax calculation, idempotent flows, and automated billing with ACH and card support.</p>
             </div>
             <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-shadow group">
               <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
@@ -182,7 +182,7 @@ export default function Portfolio() {
                 <span className="material-symbols-outlined">cloud</span>
               </div>
               <h4 className="text-xl font-bold mb-3">Cloud & DevOps</h4>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Deploying applications with AWS Lambda, S3, Docker, and implementing CI/CD pipelines for seamless development workflows.</p>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Deploying applications with AWS, Vercel, Render, Cloudflare, Docker, CDN strategy, and CI/CD pipelines for smooth and dependable delivery.</p>
             </div>
             <div className="p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-shadow group">
               <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
@@ -262,6 +262,11 @@ export default function Portfolio() {
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Multer</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Node Cron</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Nodemailer</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Event-Driven Architecture</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Webhooks</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Input Validation</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">CORS</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">HTTPS</span>
               </div>
             </div>
             <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
@@ -276,9 +281,31 @@ export default function Portfolio() {
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">NoSQL</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Numeral</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Stripe</span>
-                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">System Design</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Idempotency</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Flyway</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Database Migration</span>
+              </div>
+            </div>
+            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="material-symbols-outlined text-primary">account_tree</span>
+                <h4 className="text-lg font-bold">System Design</h4>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">API Gateway</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Caching Strategies</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Load Balancing</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Scalability</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Availability</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Reliability</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Message Queues</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Microservices</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Monolith Architecture</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Reverse Proxy</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Consistent Hashing</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Sharding</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">CAP Theorem</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Monitoring & Observability</span>
               </div>
             </div>
             <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
@@ -300,10 +327,15 @@ export default function Portfolio() {
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Husky</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Vercel</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Render</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Resend</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Cloudflare</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Neon</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Netlify</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Railway</span>
                 <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Ngrok</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">IP Configuration</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">CDN</span>
+                <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs font-semibold">Domain Management</span>
               </div>
             </div>
             <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-100 dark:border-slate-800">
